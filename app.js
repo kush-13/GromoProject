@@ -10,15 +10,12 @@ app.use(express.urlencoded({extended:true}));
 connection = db.getConnection();
 
 app.get("/createQuiz/:topic", (req, res)=>{
-    let result = db.createQuiz(req.params.topic, connection);
-    if (result.error){
-        res.status(400).send(result);
-    }else{
-        console.log();
-        res.sendStatus(200);
-    }
-
-})
+    db.createQuiz(req.params.topic, connection)
+    .catch((error)=>{
+        res.status(400).send(error);})
+    .then(()=>{
+        res.sendStatus(200);})
+    })
 
 app.post("/addQuestion", (req, res)=>{
     const {quiz_id, brief, op1, op2, op3, op4, ans} = req.body;

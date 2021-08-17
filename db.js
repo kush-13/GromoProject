@@ -15,14 +15,15 @@ module.exports.getConnection = ()=>{
 }
 
 module.exports.createQuiz = (topic, connection)=>{
-    return connection.query(`insert into quiz (topic) values ("${topic}");`, function (error, results, fields) {
-        if (error){
-            return {error:true, message:error}
-        }else{
-            console.log(`successfully created quiz on topic ${topic}`);
-            return {error:false}
-        };
-        
+    return new Promise((resolve, reject)=>{
+        return connection.query(`insert into quiz (topic) values ("${topic}");`, function (error, results, fields) {
+            if (error){
+                reject(error);
+            }else{
+                console.log(`successfully created quiz on topic ${topic}`);
+                resolve();
+            }; 
+        });
     });
 
 }
