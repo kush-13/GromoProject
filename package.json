@@ -1,0 +1,23 @@
+{
+  "name": "gromoproject",
+  "version": "1.0.0",
+  "description": "Gromo Backend Assignement",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kush-13/GromoProject.git"
+  },
+  "author": "kush-13",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kush-13/GromoProject/issues"
+  },
+  "homepage": "https://github.com/kush-13/GromoProject#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}
