@@ -26,3 +26,20 @@ module.exports.createQuiz = (topic, connection)=>{
     });
 
 }
+
+
+module.exports.addQuestion = (quiz_id, brief, op1, op2, op3, op4, ans, connection)=>{
+
+    return new Promise((resolve, reject)=>{
+        connection.query(`insert into questions (quiz_id, brief, op1, op2, op3, op4, ans) value (${quiz_id}, "${brief}", "${op1}", "${op2}", "${op3}", "${op4}", "${ans}")`, (error, results, fields)=>{
+            if (error){
+                reject(error);
+            }else{
+                console.log("Sucessfully added question ...")
+                resolve();
+            }
+        })
+
+    })
+
+}
