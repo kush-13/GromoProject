@@ -45,17 +45,17 @@ module.exports.addQuestion = (quiz_id, brief, op1, op2, op3, op4, ans, connectio
         connection.query(`select * from quiz where quiz_id = ${quiz_id}`, (error, results, fields)=>{
             if (error||results.length == 0){
                 reject(error||{error:"invalid quiz_id"});
+                }else{
+                connection.query(`insert into questions (quiz_id, brief, op1, op2, op3, op4, ans) value (${quiz_id}, "${brief}", "${op1}", "${op2}", "${op3}", "${op4}", "${ans}")`, (error, results, fields) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        console.log("Sucessfully added question ...")
+                        resolve();
+                    }
+                })
                 }
             });
-        connection.query(`insert into questions (quiz_id, brief, op1, op2, op3, op4, ans) value (${quiz_id}, "${brief}", "${op1}", "${op2}", "${op3}", "${op4}", "${ans}")`, (error, results, fields)=>{
-            if (error){
-                reject(error);
-            }else{
-                console.log("Sucessfully added question ...")
-                resolve();
-            }
-        })
-
     })
 
 }
@@ -90,16 +90,18 @@ module.exports.deleteQuiz = (quiz_id, connection)=>{
         connection.query(`delete from quiz where quiz_id = ${quiz_id}`, (error, results, fields)=>{
             if (error||(results&&results.affectedRows==0)){
                 reject(error||{error: "invalid quiz_id"})
+            }else{
+                connection.query(`delete from questions where quiz_id = ${quiz_id}`, (error, results, fields) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve();
+                    }
+                })
             }
         })
 
-        connection.query(`delete from questions where quiz_id = ${quiz_id}`, (error, results, fields)=>{
-            if (error){
-                reject(error);
-            }else{
-                resolve();
-            }   
-        })
+
     })
 }
 
