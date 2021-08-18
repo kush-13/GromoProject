@@ -28,7 +28,7 @@ app.post("/addQuestion", (req, res)=>{
 
 })
 
-app.get("/deleteQuestion/:question_id", (req, res)=>{
+app.delete("/deleteQuestion/:question_id", (req, res)=>{
     db.deleteQuestion(req.params.question_id, connection)
     .then(()=>{
         res.status(200).send({message:"deletion successfull !!"})})
@@ -37,7 +37,7 @@ app.get("/deleteQuestion/:question_id", (req, res)=>{
 
     })
 
-app.get("/deleteQuiz/:quiz_id", (req, res)=>{
+app.delete("/deleteQuiz/:quiz_id", (req, res)=>{
     db.deleteQuiz(req.params.quiz_id, connection)
     .then(()=>{
         res.status(200).send({message: "deletion Sucessfull !!"});
