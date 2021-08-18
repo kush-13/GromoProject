@@ -106,3 +106,18 @@ module.exports.modifyQuestion = (question_id, brief, ans, op1, op2, op3, op4, co
         })
     })
 }
+
+module.exports.getQuizzes = (topic, connection)=>{
+
+    return new Promise((resolve, reject)=>{
+        connection.query(`select * from quiz where topic = "${topic}"`, (error, results, fields) => {
+            console.log(results);
+            if (error) {
+                reject();
+            } else {
+                resolve(results)
+            }
+        })
+
+    })
+}

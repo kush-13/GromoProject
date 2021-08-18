@@ -70,6 +70,16 @@ app.patch("/modiyQuestion", (req, res)=>{
     })
 })
 
+app.get("/getQuizzes/:topic", (req, res)=>{
+    db.getQuizzes(req.params.topic, connection)
+    .then((data)=>{
+        res.status(200).send(data);
+    })
+    .catch((error)=>{
+        res.sendStatus(400);
+    })
+})
+
 app.listen('3000', ()=>{
     console.log("Server Listening on Port 3000")
 })
