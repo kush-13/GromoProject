@@ -49,3 +49,16 @@ module.exports.addQuestion = (quiz_id, brief, op1, op2, op3, op4, ans, connectio
     })
 
 }
+
+
+module.exports.deleteQuestion = (question_id, connection)=>{
+    return new Promise((resolve, reject)=>{
+        connection.query(`delete from questions where question_id = ${question_id}`, (error, results, fields)=>{
+            if (error||(results&&results.affectedRows==0)){
+                reject(error||{error: "invalid queston id"});
+            }else{
+                resolve();
+            }
+        })
+    })
+}

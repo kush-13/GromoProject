@@ -28,6 +28,15 @@ app.post("/addQuestion", (req, res)=>{
 
 })
 
+app.get("/deleteQuestion/:question_id", (req, res)=>{
+    db.deleteQuestion(req.params.question_id, connection)
+    .then(()=>{
+        res.status(200).send({message:"deletion successfull !!"})})
+    .catch((error)=>{
+        res.status(400).send(error);})
+
+    })
+
 app.listen('3000', ()=>{
     console.log("Server Listening on Port 3000")
 })
