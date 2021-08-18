@@ -2,12 +2,14 @@ var mysql = require('mysql');
 const config = require('./config');
 
 module.exports.getConnection = ()=>{
+    // function to return connection object {connection to sql database}
+    // returns null if can't establish connection
+
     var connection = mysql.createConnection(config);
 
     connection.connect((err)=>{
         if (err){
             console.log("error connecting to the database ...")
-            return null;
         }
     });
 
@@ -15,6 +17,10 @@ module.exports.getConnection = ()=>{
 }
 
 module.exports.createQuiz = (topic, connection)=>{
+    // fxn to run a query on dataBase to 
+    // create a quiz on the given topic
+    // return's a promise
+
     return new Promise((resolve, reject)=>{
         return connection.query(`insert into quiz (topic) values ("${topic}");`, function (error, results, fields) {
             if (error){
@@ -30,6 +36,10 @@ module.exports.createQuiz = (topic, connection)=>{
 
 
 module.exports.addQuestion = (quiz_id, brief, op1, op2, op3, op4, ans, connection)=>{
+    // fxn to run a query on dataBase to 
+    // add a question for a given quiz_id
+    // and given information {briefs, op1, op2 ...}
+    // return's a promise
 
     return new Promise((resolve, reject)=>{
         connection.query(`select * from quiz where quiz_id = ${quiz_id}`, (error, results, fields)=>{
@@ -52,6 +62,11 @@ module.exports.addQuestion = (quiz_id, brief, op1, op2, op3, op4, ans, connectio
 
 
 module.exports.deleteQuestion = (question_id, connection)=>{
+    // fxn to run a query on dataBase to 
+    // delete a question with a given question_id
+    // and given information {briefs, op1, op2 ...}
+    // return's a promise
+
     return new Promise((resolve, reject)=>{
         connection.query(`delete from questions where question_id = ${question_id}`, (error, results, fields)=>{
             if (error||(results&&results.affectedRows==0)){
@@ -65,6 +80,12 @@ module.exports.deleteQuestion = (question_id, connection)=>{
 
 
 module.exports.deleteQuiz = (quiz_id, connection)=>{
+    // fxn to run a query on dataBase to 
+    // delete a Quiz for a given quiz_id
+    // and all the question associated with
+    // that quiz_id
+    // return's a promise
+
     return new Promise((resolve, reject)=>{
         connection.query(`delete from quiz where quiz_id = ${quiz_id}`, (error, results, fields)=>{
             if (error||(results&&results.affectedRows==0)){
@@ -83,6 +104,10 @@ module.exports.deleteQuiz = (quiz_id, connection)=>{
 }
 
 module.exports.modifyQuiz = (quiz_id, topic, connection)=>{
+    // fxn to run a query on dataBase to 
+    // modify quiz information for a given quiz_id
+    // return's a promise
+
     return new Promise((resolve, reject)=>{
         connection.query(`update quiz set topic = "${topic}" where quiz_id = ${quiz_id}`, (error, results, fields)=>{
             if (error||(results&&results.affectedRows == 0)){
@@ -95,6 +120,10 @@ module.exports.modifyQuiz = (quiz_id, topic, connection)=>{
 }
 
 module.exports.modifyQuestion = (question_id, brief, ans, op1, op2, op3, op4, connection)=>{
+    // fxn to run a query on dataBase to 
+    // modify question information
+    // return's a promise
+
     return new Promise((resolve, reject)=>{
         connection.query(`update questions set brief = "${brief}", op1 = "${op1}", op2 = "${op2}",
         op3 = "${op3}", op4 = "${op4}", ans = "${ans}" where question_id = ${question_id}`, (error, results, fields)=>{
@@ -108,6 +137,9 @@ module.exports.modifyQuestion = (question_id, brief, ans, op1, op2, op3, op4, co
 }
 
 module.exports.getQuizzes = (topic, connection)=>{
+    // fxn to run a query on dataBase to 
+    // get quizzes with given topic
+    // return's a promise
 
     return new Promise((resolve, reject)=>{
         connection.query(`select * from quiz where topic = "${topic}"`, (error, results, fields) => {
@@ -122,6 +154,10 @@ module.exports.getQuizzes = (topic, connection)=>{
 }
 
 module.exports.takeQuiz = (quiz_id, connection)=>{
+    // fxn to run a query on dataBase to 
+    // get quiz with given quiz_id
+    // return's a promise
+
     return new Promise((resolve, reject)=>{
         connection.query(`select * from questions where quiz_id = ${quiz_id}`, (error, results)=>{
             if (error||results==null||results.length ==0){
