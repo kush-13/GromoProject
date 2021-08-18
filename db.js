@@ -1,22 +1,19 @@
 var mysql = require('mysql');
 const config = require('./config');
 
-module.exports.getConnection = ()=>{
-    // function to return connection object {connection to sql database}
-    // returns null if can't establish connection
+// function to return connection object {connection to sql database}
+// returns null if can't establish connection
 
-    var connection = mysql.createConnection(config);
+const connection = mysql.createConnection(config);
 
-    connection.connect((err)=>{
-        if (err){
-            console.log("error connecting to the database ...")
-        }
-    });
+connection.connect((err)=>{
+    if (err){
+        console.log("error connecting to the database ...")
+    }
+});
 
-    return connection;
-}
 
-module.exports.createQuiz = (topic, connection)=>{
+module.exports.createQuiz = (topic)=>{
     // fxn to run a query on dataBase to 
     // create a quiz on the given topic
     // return's a promise
@@ -35,7 +32,7 @@ module.exports.createQuiz = (topic, connection)=>{
 }
 
 
-module.exports.addQuestion = (quiz_id, brief, op1, op2, op3, op4, ans, connection)=>{
+module.exports.addQuestion = (quiz_id, brief, op1, op2, op3, op4, ans)=>{
     // fxn to run a query on dataBase to 
     // add a question for a given quiz_id
     // and given information {briefs, op1, op2 ...}
@@ -61,7 +58,7 @@ module.exports.addQuestion = (quiz_id, brief, op1, op2, op3, op4, ans, connectio
 }
 
 
-module.exports.deleteQuestion = (question_id, connection)=>{
+module.exports.deleteQuestion = (question_id)=>{
     // fxn to run a query on dataBase to 
     // delete a question with a given question_id
     // and given information {briefs, op1, op2 ...}
@@ -79,7 +76,7 @@ module.exports.deleteQuestion = (question_id, connection)=>{
 }
 
 
-module.exports.deleteQuiz = (quiz_id, connection)=>{
+module.exports.deleteQuiz = (quiz_id)=>{
     // fxn to run a query on dataBase to 
     // delete a Quiz for a given quiz_id
     // and all the question associated with
@@ -105,7 +102,7 @@ module.exports.deleteQuiz = (quiz_id, connection)=>{
     })
 }
 
-module.exports.modifyQuiz = (quiz_id, topic, connection)=>{
+module.exports.modifyQuiz = (quiz_id, topic)=>{
     // fxn to run a query on dataBase to 
     // modify quiz information for a given quiz_id
     // return's a promise
@@ -121,7 +118,7 @@ module.exports.modifyQuiz = (quiz_id, topic, connection)=>{
     })
 }
 
-module.exports.modifyQuestion = (question_id, brief, ans, op1, op2, op3, op4, connection)=>{
+module.exports.modifyQuestion = (question_id, brief, ans, op1, op2, op3, op4)=>{
     // fxn to run a query on dataBase to 
     // modify question information
     // return's a promise
@@ -138,7 +135,7 @@ module.exports.modifyQuestion = (question_id, brief, ans, op1, op2, op3, op4, co
     })
 }
 
-module.exports.getQuizzes = (topic, connection)=>{
+module.exports.getQuizzes = (topic)=>{
     // fxn to run a query on dataBase to 
     // get quizzes with given topic
     // return's a promise
@@ -155,7 +152,7 @@ module.exports.getQuizzes = (topic, connection)=>{
     })
 }
 
-module.exports.takeQuiz = (quiz_id, connection)=>{
+module.exports.takeQuiz = (quiz_id)=>{
     // fxn to run a query on dataBase to 
     // get quiz with given quiz_id
     // return's a promise

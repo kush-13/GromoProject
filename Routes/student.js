@@ -3,10 +3,9 @@ const db = require('../db');
 
 let app = express.Router();
 
-connection = db.getConnection();
 
 app.get("/getQuizzes/:topic", (req, res) => {
-    db.getQuizzes(req.params.topic, connection)
+    db.getQuizzes(req.params.topic)
         .then((data) => {
             res.status(200).send(data);
         })
@@ -16,7 +15,7 @@ app.get("/getQuizzes/:topic", (req, res) => {
 })
 
 app.get("/takeQuiz/:quiz_id", (req, res) => {
-    db.takeQuiz(req.params.quiz_id, connection)
+    db.takeQuiz(req.params.quiz_id)
         .then((quiz) => {
             res.status(200).send(quiz);
         })
