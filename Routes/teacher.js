@@ -5,7 +5,7 @@ let app = express.Router();
 
 connection = db.getConnection();
 
-app.get("/createQuiz/:topic", (req, res) => {
+app.post("/createQuiz/:topic", (req, res) => {
     db.createQuiz(req.params.topic, connection)
         .catch((error) => {
             res.status(400).send(error);
