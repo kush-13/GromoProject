@@ -62,3 +62,22 @@ module.exports.deleteQuestion = (question_id, connection)=>{
         })
     })
 }
+
+
+module.exports.deleteQuiz = (quiz_id, connection)=>{
+    return new Promise((resolve, reject)=>{
+        connection.query(`delete from quiz where quiz_id = ${quiz_id}`, (error, results, fields)=>{
+            if (error||(results&&results.affectedRows==0)){
+                reject(error||{error: "invalid quiz_id"})
+            }
+        })
+
+        connection.query(`delete from questions where quiz_id = ${quiz_id}`, (error, results, fields)=>{
+            if (error){
+                reject(error);
+            }else{
+                resolve();
+            }   
+        })
+    })
+}

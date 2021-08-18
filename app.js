@@ -37,6 +37,16 @@ app.get("/deleteQuestion/:question_id", (req, res)=>{
 
     })
 
+app.get("/deleteQuiz/:quiz_id", (req, res)=>{
+    db.deleteQuiz(req.params.quiz_id, connection)
+    .then(()=>{
+        res.status(200).send({message: "deletion Sucessfull !!"});
+    })
+    .catch((error)=>{
+        res.status(400).send(error);
+    })
+})
+
 app.listen('3000', ()=>{
     console.log("Server Listening on Port 3000")
 })
