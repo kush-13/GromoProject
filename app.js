@@ -80,6 +80,16 @@ app.get("/getQuizzes/:topic", (req, res)=>{
     })
 })
 
+app.get("/takeQuiz/:quiz_id", (req, res)=>{
+    db.takeQuiz(req.params.quiz_id, connection)
+    .then((quiz)=>{
+        res.status(200).send(quiz);
+    })
+    .catch((error)=>{
+        res.status(400).send(error);
+    })
+})
+
 app.listen('3000', ()=>{
     console.log("Server Listening on Port 3000")
 })

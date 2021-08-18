@@ -121,3 +121,16 @@ module.exports.getQuizzes = (topic, connection)=>{
 
     })
 }
+
+module.exports.takeQuiz = (quiz_id, connection)=>{
+    return new Promise((resolve, reject)=>{
+        connection.query(`select * from questions where quiz_id = ${quiz_id}`, (error, results)=>{
+            if (error||results==null||results.length ==0){
+                reject()
+            }else{
+                resolve(results);
+                }
+            })
+        })
+           
+}
