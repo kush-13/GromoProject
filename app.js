@@ -58,6 +58,18 @@ app.patch("/modifyQuiz/:quiz_id/:newtopic", (req, res)=>{
         res.status(400).send(error);
     })
 })
+
+app.patch("/modiyQuestion", (req, res)=>{
+    const {question_id, brief, ans, op1, op2, op3, op4} = req.body;
+    db.modifyQuestion(question_id, brief, ans, op1, op2, op3, op4, connection)
+    .then(()=>{
+        res.sendStatus(200);
+    })
+    .catch((error)=>{
+        res.status(400).send(error);
+    })
+})
+
 app.listen('3000', ()=>{
     console.log("Server Listening on Port 3000")
 })

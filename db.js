@@ -93,3 +93,16 @@ module.exports.modifyQuiz = (quiz_id, topic, connection)=>{
         })
     })
 }
+
+module.exports.modifyQuestion = (question_id, brief, ans, op1, op2, op3, op4, connection)=>{
+    return new Promise((resolve, reject)=>{
+        connection.query(`update questions set brief = "${brief}", op1 = "${op1}", op2 = "${op2}",
+        op3 = "${op3}", op4 = "${op4}", ans = "${ans}" where question_id = ${question_id}`, (error, results, fields)=>{
+            if (error||(results&&results.affectedRows == 0)){
+                reject(error||{error: "invalid question id "})
+            }else{
+                resolve();
+            }
+        })
+    })
+}
