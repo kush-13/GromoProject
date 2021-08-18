@@ -81,3 +81,15 @@ module.exports.deleteQuiz = (quiz_id, connection)=>{
         })
     })
 }
+
+module.exports.modifyQuiz = (quiz_id, topic, connection)=>{
+    return new Promise((resolve, reject)=>{
+        connection.query(`update quiz set topic = "${topic}" where quiz_id = ${quiz_id}`, (error, results, fields)=>{
+            if (error||(results&&results.affectedRows == 0)){
+                reject(error||{error:"invalid quiz_id"});
+            }else{
+                resolve();
+            }
+        })
+    })
+}

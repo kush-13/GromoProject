@@ -47,6 +47,17 @@ app.delete("/deleteQuiz/:quiz_id", (req, res)=>{
     })
 })
 
+
+app.patch("/modifyQuiz/:quiz_id/:newtopic", (req, res)=>{
+    const {quiz_id, newtopic} = req.params;
+    db.modifyQuiz(quiz_id, newtopic, connection)
+    .then(()=>{
+        res.sendStatus(200);
+    })
+    .catch((error)=>{
+        res.status(400).send(error);
+    })
+})
 app.listen('3000', ()=>{
     console.log("Server Listening on Port 3000")
 })
